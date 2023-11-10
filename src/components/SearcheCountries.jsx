@@ -10,6 +10,7 @@ function SearcheCountries() {
     }
 
     const navigate = useNavigate()
+    
     const handleSubmit =(e) =>{
         e.preventDefault()
         const search = name

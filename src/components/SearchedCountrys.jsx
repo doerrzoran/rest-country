@@ -9,13 +9,34 @@ export default function SearchedCountrys() {
     fetch(`https://restcountries.com/v3.1/name/${search}`)
     .then(response => response.json())
     .then(data => setCountries(data))
+
+      let continents = []
+    countries.map((country) => {
+        // console.log(country.continents[0])
+        continents.push(country.continents[0])
+        continents = continents.filter((value, index) => continents.indexOf(value) === index)
+        // console.log(continents)
+    })
+
     return(
         <div>
             <ul>
-                {countries.map((list, index) => (
-                    <li key={index}>{list.name.common}</li>
-                ))}
+                {
+                    continents.map((continent) => {
+                        return[
+                            <h1>{continent}</h1>,
+                            countries.filter((list) => 
+                                list.continents[0] === continent)
+                                .map((country) => (
+                                    <li> {country.name.common} </li>
+                                    )
+                                )
+                            ]
+                        }
+                    )
+                }
             </ul>
         </div>
     )
 };
+
