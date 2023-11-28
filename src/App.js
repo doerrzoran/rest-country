@@ -17,8 +17,9 @@ function App() {
     .then(response => response.json())
     .then(data => setCountries(data))
     .catch(err => console.log(err))
-}, [])
+  }, [])
 
+  document.body.classList.add("bg-light")
   return (
     <div>
       <Countries countriesList ={countries} />

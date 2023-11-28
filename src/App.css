@@ -25,7 +25,12 @@
 }
 
 .App-link {
-  color: #61dafb;
+  color: #fb61a6;
+}
+
+a{
+  text-decoration: none;
+  color: black;
 }
 
 @keyframes App-logo-spin {
@@ -35,4 +40,14 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+#selectInput{
+  
+  font-size: 80%;
+  min-width: 200px;
+}
+
+#searchInput{
+  max-width: 400px;
 }

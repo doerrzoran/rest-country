@@ -4,6 +4,8 @@ import { useNavigate, useParams } from "react-router-dom"
 import ContinentsFilter from "./ContinentsFilter"
 import Navbar from "./Navbar"
 import BorderCountry from "./BorderCountry"
+import Country from "./Country"
+import { Search } from "react-bootstrap-icons"
 
 export default function Countries(props) {
     let {countriesList} = props
@@ -27,7 +29,6 @@ export default function Countries(props) {
 
     let continents = []
     countriesList.map((country) => {
-        // console.log(country.continents[0])
         continents.push(country.continents[0])
         continents = continents.filter((value, index) => continents.indexOf(value) === index)
     })
@@ -36,11 +37,10 @@ export default function Countries(props) {
     const handleClick = (e) => {
         e.preventDefault()
         setCountries(countriesList)
+        console.log(e.target.id)
         setlink(e.target.id)
         setborderCountries([])
         setlinkValue(true)
-
-        console.log(countries)
     }
 
     if(linkValue){
@@ -50,6 +50,7 @@ export default function Countries(props) {
         setCountries(countryfilter)
         setisBorder(true)
         setlinkValue(false)
+        console.log(countryfilter)
     }
     
     if (isBorder && countries[0].borders) {
@@ -68,12 +69,14 @@ export default function Countries(props) {
         setname(e.target.value)
     }
     
-    const handleSubmit = (e) => {
-        e.preventDefault()
-        setborderCountries([])
-        setCountries(countriesList)
-        let countriesFilter = countries
-        setinputValue(true)
+    const handleKeyDown = (e) => {
+        if (e.key === "Enter") {
+            e.preventDefault()
+            setborderCountries([])
+            setCountries(countriesList)
+            let countriesFilter = countries
+            setinputValue(true)
+        }
     }
     
     if(inputValue){
@@ -104,51 +107,78 @@ export default function Countries(props) {
         setselectValue(false)
     }
 
+    // console.log(countries)
+    // throw new Error('stop')
 
-    return[
+    return(
         <div>
-            <Navbar/>
-            <form onSubmit={handleSubmit}>
-                <input type="text" value={name} onChange={handleChange}/>
-                <button type="submit">chercher</button>
-            </form>
-
+            
+                <Navbar/>
 
             <form>
-                <select value={selected}>
-                    <option value="">Filtrer par continents</option>
-                    {
-                        continents.map((continent) => 
-                            <option value={continent} onClick={handleSelect}>{continent}</option>
-                        )
-                    }
-                </select>
+                <div className="container mt-5">
+
+                    <div className="flex-row row justify-content-between">
+                        <div className="col-md-3 flexcol">
+                            <input id='searchInput' onChange={handleChange} onKeyDown={handleKeyDown} type="text" className="form-control form-input " placeholder="Search anything..." />
+
+                        </div>
+
+                    
+                    
+                        <div className="col-xs-4 w-25">
+                            <select id="selectInput" value={selected} class="form-select" aria-label="Default select example">
+                                <option selected>Filtrer par continents</option>
+                                {
+                                    continents.map((continent) => 
+                                    <option value={continent} onClick={handleSelect}>{continent}</option>
+                                    )
+                                }
+                            </select>
+                        </div>
+                    </div>
+
+                </div>
             </form>
 
-            
-            <ul>
-                {
-                    countries.map((country) => 
-                    <li>
-                        <a href="/" onClick={handleClick} id={country.name.common}> {country.name.common}</a>
-                        <ul>
-                            {
-                                borderCountries.map((borderCountry) => 
-                                    <li>
-                                        <a href="/" onClick={handleClick} id={borderCountry.name.common}>
-                                            {borderCountry.name.common}
-                                        </a>
-                                    </li>
-                                )
-                            }
-                        </ul> 
-                    </li>
-                    )
-                    
-                }
-            </ul>
+
+                <div className="container">
+                    <div className="row">
+                        {
+                            countries.map((country) => 
+                            <div className="col">
+                                <div className="card" style={{ width: '18rem'}}>
+                                    <img className="card-img-top" src={country.flags.png} alt="Card image cap" style={{ width: '18rem'}} />
+                                    <div className="card-body">
+                                        <h5 className="card-title">
+                                            <a href="/" onClick={handleClick} id={country.name.common}>
+                                                {country.name.common}
+                                            </a>
+                                        </h5>
+                                        <p className="card-text">Population: {country.population} </p>
+                                        <p className="card-text">Region: {country.region} </p>
+                                        <p className="card-text">Capitale: {country.capital} </p>
+                                    </div>
+                                </div>
+                                <ul>
+                                    {
+                                        borderCountries.map((borderCountry) => 
+                                            <li>
+                                                <a href="/" onClick={handleClick} id={borderCountry.name.common}>
+                                                    {borderCountry.name.common}
+                                                </a>
+                                            </li>
+                                        )
+                                    }
+                                </ul> 
+                            </div>
+                            )
+                            
+                        }
+                    </div>
+                </div>
         </div>
         
-    ]
+    )
     
 };
