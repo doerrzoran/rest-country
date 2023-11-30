@@ -16,8 +16,6 @@ export default function BorderCountry(props) {
     const navigate = useNavigate()
     const handleClick = (e) =>{
         e.preventDefault()
-        console.log(country[0].cca2)
-        // throw new Error('vv')
         const search =  e.target.id
         navigate(`../${search}`)
     }
@@ -25,7 +23,7 @@ export default function BorderCountry(props) {
     if(country.length > 0){
         
         return(
-            <a href="/" onClick={handleClick} id={country[0].cca2}>{country[0].name.common}</a>
+            <div onClick={handleClick} id={country[0].name.common}>{country[0].name.common}</div>
         )
 
     }

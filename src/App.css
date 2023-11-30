@@ -1,6 +1,7 @@
-.App {
-  text-align: center;
-}
+/* .App {
+  background-color: #282c34;
+} */
+
 
 .App-logo {
   height: 40vmin;
@@ -51,3 +52,46 @@ a{
 #searchInput{
   max-width: 400px;
 }
+
+ul{
+  list-style: none;
+}
+
+#titleCountry{
+  margin-left: 29px;
+}
+#bordercountries{
+  margin-left: 20px;
+}
+
+.container img {
+  height: 100%;
+  object-fit: cover; /* This ensures the image covers the entire height without distortion */
+}
+
+.background {
+  background-color: white;
+}
+
+.dark {
+  background-color:#282c34;
+  color: aliceblue;
+}
+.dark a{
+
+  color: aliceblue;
+}
+.dark .card{
+  background-color: #4a4f5a;
+  color: aliceblue;
+}
+.dark nav{
+  background-color: #4a4f5a;
+  color: aliceblue;
+}
+
+.btn {
+  outline: none;
+}
+
+

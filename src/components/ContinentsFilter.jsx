@@ -1,29 +1,31 @@
 import { useEffect, useState } from "react"
-import { Navigate, useNavigate, useParams } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 
-export default function SearcheCountries(props) {
+export default function ContinentsFilter(props) {
     let {countriesList} = props
-    const {name} = useParams()
+    const {continent} = useParams()
     const [countries, setCountries] = useState([])
     const [link, setlink] = useState('')
+    const [linkValue, setlinkValue] = useState(false)
 
-    let countryfilter = countriesList.filter((country) => {
-        return country.name.common.toLowerCase().startsWith(name)
+    let continentFilter = countriesList.filter((country) => {
+        return country.continents.includes(continent)
     })
 
     useEffect(() => {
-        setCountries(countryfilter);
-        // console.log('Updated countries:', countryfilter);
-    }, [countryfilter]);
-
-
+        setCountries(continentFilter)
+    }, [continentFilter])
+    
     const navigate = useNavigate()
     const handleClick = (e) => {
         e.preventDefault()
         setlink(e.target.id)
-        navigate(`/${link}`)
+        setlinkValue(true)
     }
 
+    if (linkValue) {
+        navigate(`../../detail/${link}`)
+    }
     return(
         <div className="container">
                     <div className="row">
@@ -51,3 +53,4 @@ export default function SearcheCountries(props) {
                 </div>
     )
 };
+
